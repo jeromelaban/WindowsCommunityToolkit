@@ -11,7 +11,9 @@ using Windows.System;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 
+#if !HAS_UNO
 [assembly: InternalsVisibleTo("UnitTests.XamlIslands.UWPApp")]
+#endif
 
 namespace Microsoft.Toolkit.Uwp.UI.Helpers
 {

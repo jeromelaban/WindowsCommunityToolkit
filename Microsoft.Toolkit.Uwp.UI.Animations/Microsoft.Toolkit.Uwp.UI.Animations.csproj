@@ -1,7 +1,7 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
-    <TargetFramework>uap10.0.17763</TargetFramework>
+    <TargetFrameworks>uap10.0.17763</TargetFrameworks>
     <Title>Windows Community Toolkit Animations</Title>
     <Description>
       This library provides helpers and extensions on top of Windows Composition and XAML storyboards. It is part of the Windows Community Toolkit.
@@ -17,7 +17,8 @@
       - AnimationExtensions: Blur, Fade, Light, Offset, Rotate, Saturation, Scale
     </Description>
     <PackageTags>UWP Toolkit Windows Animations Composition Connected Implicit XAML</PackageTags>
-  </PropertyGroup>
+		<UseUnoPlatform>true</UseUnoPlatform>
+	</PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
@@ -26,4 +27,5 @@
     <ProjectReference Include="..\Microsoft.Toolkit.Uwp.UI\Microsoft.Toolkit.Uwp.UI.csproj" />
   </ItemGroup>
 
+	<Import Project="Microsoft.Toolkit.Uwp.UI.Animations.UnoPlatform.targets" />
 </Project>

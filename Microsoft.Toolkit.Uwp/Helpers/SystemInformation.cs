@@ -214,43 +214,6 @@ namespace Microsoft.Toolkit.Uwp.Helpers
                     ? DateTime.FromFileTimeUtc(lastResetTime)
                     : DateTime.MinValue;
             }
-
-            if (xamlRoot != null)
-            {
-                void XamlRoot_Changed(XamlRoot sender, XamlRootChangedEventArgs e)
-                {
-                    UpdateVisibility(sender.IsHostVisible);
-                }
-
-                xamlRoot.Changed -= XamlRoot_Changed;
-                xamlRoot.Changed += XamlRoot_Changed;
-            }
-            else
-            {
-                void App_VisibilityChanged(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.VisibilityChangedEventArgs e)
-                {
-                    UpdateVisibility(e.Visible);
-                }
-
-                Windows.UI.Core.CoreWindow.GetForCurrentThread().VisibilityChanged -= App_VisibilityChanged;
-                Windows.UI.Core.CoreWindow.GetForCurrentThread().VisibilityChanged += App_VisibilityChanged;
-            }
-        }
-
-        private void UpdateVisibility(bool visible)
-        {
-            if (visible)
-            {
-                _sessionStart = DateTime.UtcNow;
-            }
-            else
-            {
-                var subSessionLength = DateTime.UtcNow.Subtract(_sessionStart).Ticks;
-
-                var uptimeSoFar = _localObjectStorageHelper.Read<long>(nameof(AppUptime));
-
-                _localObjectStorageHelper.Save(nameof(AppUptime), uptimeSoFar + subSessionLength);
-            }
         }
 
         /// <summary>
@@ -281,6 +244,7 @@ namespace Microsoft.Toolkit.Uwp.Helpers
         /// </summary>
         private SystemInformation()
         {
+#if !HAS_UNO
             ApplicationName = Package.Current.DisplayName;
             ApplicationVersion = Package.Current.Id.Version;
             try
@@ -311,6 +275,9 @@ namespace Microsoft.Toolkit.Uwp.Helpers
             FirstUseTime = DetectFirstUseTime();
             FirstVersionInstalled = DetectFirstVersionInstalled();
             InitializeValuesSetWithTrackAppUse();
+#else
+            ApplicationName = "Unknown";
+#endif
         }
 
         private bool DetectIfFirstUse()

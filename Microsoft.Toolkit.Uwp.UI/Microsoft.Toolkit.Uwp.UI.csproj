@@ -1,7 +1,7 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
-    <TargetFramework>uap10.0.17763</TargetFramework>
+    <TargetFrameworks>uap10.0.17763</TargetFrameworks>
     <LangVersion>8.0</LangVersion>
     <Title>Windows Community Toolkit UI</Title>
     <Description>
@@ -46,7 +46,8 @@
     <PackageTags>UWP Toolkit Windows UI Converters XAML extensions helpers</PackageTags>
 
     <UseWindowsDesktopSdk>true</UseWindowsDesktopSdk>
-  </PropertyGroup>
+		<UseUnoPlatform>true</UseUnoPlatform>
+	</PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed" Version="2.0.1" />
@@ -56,4 +57,5 @@
     <ProjectReference Include="..\Microsoft.Toolkit.Uwp\Microsoft.Toolkit.Uwp.csproj" />
   </ItemGroup>  
 
+	<Import Project="..\UnoPlatform.targets"/>
 </Project>

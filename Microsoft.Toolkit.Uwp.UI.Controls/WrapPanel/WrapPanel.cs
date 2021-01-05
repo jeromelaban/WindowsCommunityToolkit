@@ -2,6 +2,8 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+#pragma warning disable 109
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -84,7 +86,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
         /// The dimensions of the space between the border and its child as a Thickness value.
         /// Thickness is a structure that stores dimension values using pixel measures.
         /// </returns>
-        public Thickness Padding
+        public new Thickness Padding
         {
             get { return (Thickness)GetValue(PaddingProperty); }
             set { SetValue(PaddingProperty, value); }
@@ -94,7 +96,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
         /// Identifies the Padding dependency property.
         /// </summary>
         /// <returns>The identifier for the <see cref="Padding"/> dependency property.</returns>
-        public static readonly DependencyProperty PaddingProperty =
+        public static readonly new DependencyProperty PaddingProperty =
             DependencyProperty.Register(
                 nameof(Padding),
                 typeof(Thickness),

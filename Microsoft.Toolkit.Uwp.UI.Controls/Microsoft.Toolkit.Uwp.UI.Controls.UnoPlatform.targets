@@ -1,0 +1,21 @@
+<Project>
+
+	<Target Name="_AnimationsRemoveUnsupportedCode" BeforeTargets="CoreCompile">
+
+		<ItemGroup Condition="'$(UseUnoPlatform)'=='true' and '$(_IsUnoTargetFramework)'=='true'">
+			<Page Remove="Eyedropper/**/*.xaml" />
+			<Page Remove="InfiniteCanvas/**/*.xaml" />
+			<Page Remove="ImageCropper/**/*.xaml" />
+			<Compile Remove="Eyedropper/**/*.cs" />
+			<Compile Remove="InfiniteCanvas/**/*.cs" />
+			<Compile Remove="ImageCropper/**/*.cs" />
+
+			<None Include="Eyedropper/**/*.*" />
+			<None Include="InfiniteCanvas/**/*.*" />
+			<None Include="ImageCropper/**/*.*" />
+		</ItemGroup>
+
+	</Target>
+	
+	<Import Project="..\UnoPlatform.targets"/>
+</Project>

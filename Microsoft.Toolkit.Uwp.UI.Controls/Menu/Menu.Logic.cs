@@ -28,7 +28,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
         /// </summary>
         internal FlyoutPlacementMode? CurrentFlyoutPlacement { get; set; }
 
-        private static bool NavigateUsingKeyboard(KeyEventArgs args, Menu menu, Orientation orientation)
+        private static bool NavigateUsingKeyboard(Windows.UI.Core.KeyEventArgs args, Menu menu, Orientation orientation)
         {
             object element;
             if (ControlHelpers.IsXamlRootAvailable && menu.XamlRoot != null)
@@ -133,9 +133,9 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
 
         private static string MapInputToGestureKey(VirtualKey key, bool menuHasFocus = false)
         {
-            var isCtrlDown = Window.Current.CoreWindow.GetKeyState(VirtualKey.Control).HasFlag(CoreVirtualKeyStates.Down);
-            var isShiftDown = Window.Current.CoreWindow.GetKeyState(VirtualKey.Shift).HasFlag(CoreVirtualKeyStates.Down);
-            var isAltDown = Window.Current.CoreWindow.GetKeyState(VirtualKey.Menu).HasFlag(CoreVirtualKeyStates.Down) || menuHasFocus;
+            var isCtrlDown = Windows.UI.Xaml.Window.Current.CoreWindow.GetKeyState(VirtualKey.Control).HasFlag(CoreVirtualKeyStates.Down);
+            var isShiftDown = Windows.UI.Xaml.Window.Current.CoreWindow.GetKeyState(VirtualKey.Shift).HasFlag(CoreVirtualKeyStates.Down);
+            var isAltDown = Windows.UI.Xaml.Window.Current.CoreWindow.GetKeyState(VirtualKey.Menu).HasFlag(CoreVirtualKeyStates.Down) || menuHasFocus;
 
             if (!isCtrlDown && !isShiftDown && !isAltDown)
             {
@@ -209,9 +209,9 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
             }
             else
             {
-                content = Window.Current.Content;
-                height = Window.Current.Bounds.Height;
-                width = Window.Current.Bounds.Width;
+                content = Windows.UI.Xaml.Window.Current.Content;
+                height = Windows.UI.Xaml.Window.Current.Bounds.Height;
+                width = Windows.UI.Xaml.Window.Current.Bounds.Width;
             }
 
             var ttv = TransformToVisual(content);
@@ -311,7 +311,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
 
         internal void CalculateBounds()
         {
-            var ttv = TransformToVisual(ControlHelpers.IsXamlRootAvailable && XamlRoot != null ? XamlRoot.Content : Window.Current.Content);
+            var ttv = TransformToVisual(ControlHelpers.IsXamlRootAvailable && XamlRoot != null ? XamlRoot.Content : Windows.UI.Xaml.Window.Current.Content);
             Point screenCoords = ttv.TransformPoint(new Point(0, 0));
             _bounds.X = screenCoords.X;
             _bounds.Y = screenCoords.Y;

@@ -16,13 +16,19 @@ using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 
+#if HAS_UNO
+using Popup = Windows.UI.Xaml.Controls.Popup;
+#else
+using Popup = Windows.UI.Xaml.Controls.Primitives.Popup;
+#endif
+
 namespace Microsoft.Toolkit.Uwp.UI.Controls
 {
     /// <summary>
     /// Menu Item is the items main container for Class Menu control
     /// </summary>
     [Obsolete("This control will be removed in a future major release. Please use the MenuBar control from the WinUI Library instead.")]
-    public class MenuItem : HeaderedItemsControl
+    public partial class MenuItem : HeaderedItemsControl
     {
         private const string FlyoutButtonName = "FlyoutButton";
         private const char UnderlineCharacter = '^';
@@ -156,7 +162,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
             }
             else
             {
-                content = Window.Current.Content;
+                content = Windows.UI.Xaml.Window.Current.Content;
             }
 
             var ttv = TransformToVisual(content);
@@ -194,7 +200,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
 
         internal void ShowTooltip()
         {
-            var inputGestureText = GetValue(Menu.InputGestureTextProperty) as string;
+            var inputGestureText = GetValue(Controls.Menu.InputGestureTextProperty) as string;
             if (string.IsNullOrEmpty(inputGestureText))
             {
                 return;
@@ -334,6 +340,8 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
                 UIElement content;
                 double outerContentWidth;
                 double outerContentHeight;
+
+#if !HAS_UNO
                 if (ControlHelpers.IsXamlRootAvailable && MenuFlyout.XamlRoot != null)
                 {
                     popups = VisualTreeHelper.GetOpenPopupsForXamlRoot(MenuFlyout.XamlRoot);
@@ -342,11 +350,12 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
                     outerContentHeight = MenuFlyout.XamlRoot.Size.Height;
                 }
                 else
+#endif
                 {
-                    popups = VisualTreeHelper.GetOpenPopups(Window.Current);
-                    content = Window.Current.Content;
-                    outerContentWidth = Window.Current.Bounds.Width;
-                    outerContentHeight = Window.Current.Bounds.Height;
+                    popups = VisualTreeHelper.GetOpenPopups(Windows.UI.Xaml.Window.Current);
+                    content = Windows.UI.Xaml.Window.Current.Content;
+                    outerContentWidth = Windows.UI.Xaml.Window.Current.Bounds.Width;
+                    outerContentHeight = Windows.UI.Xaml.Window.Current.Bounds.Height;
                 }
 
                 var popup = popups.FirstOrDefault(p => p.Child is MenuFlyoutPresenter);

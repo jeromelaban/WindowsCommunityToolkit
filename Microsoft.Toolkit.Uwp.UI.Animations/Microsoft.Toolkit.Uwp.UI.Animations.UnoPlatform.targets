@@ -1,0 +1,29 @@
+<Project>
+
+	<Target Name="_AnimationsRemoveUnsupportedCode" BeforeTargets="CoreCompile">
+
+		<ItemGroup Condition="'$(UseUnoPlatform)'=='true' and '$(_IsUnoTargetFramework)'=='true'">
+			<Compile Remove="Effects\Blur.cs" />
+			<Compile Remove="Effects\Saturation.cs" />
+			<Compile Remove="Extensions\AnimationExtensions.Light.cs" />
+			<Compile Remove="SurfaceLoader.cs" />
+			<Compile Remove="Extensions\AnimationExtensions.Blur.cs" />
+			<Compile Remove="Extensions\AnimationExtensions.Saturation.cs" />
+			<Compile Remove="Behaviors\Blur.cs" />
+			<Compile Remove="Behaviors\Light.cs" />
+			<Compile Remove="Behaviors\Saturation.cs" />
+			<None Include="Effects\Blur.cs" />
+			<None Include="Effects\Saturation.cs" />
+			<None Include="Extensions\AnimationExtensions.Light.cs" />
+			<None Include="SurfaceLoader.cs" />
+			<None Include="Extensions\AnimationExtensions.Blur.cs" />
+			<None Include="Extensions\AnimationExtensions.Saturation.cs" />
+			<None Include="Behaviors\Blur.cs" />
+			<None Include="Behaviors\Light.cs" />
+			<None Include="Behaviors\Saturation.cs" />
+		</ItemGroup>
+
+	</Target>
+	
+	<Import Project="..\UnoPlatform.targets"/>
+</Project>

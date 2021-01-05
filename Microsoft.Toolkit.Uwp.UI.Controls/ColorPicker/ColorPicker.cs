@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Globalization;
 using Microsoft.Toolkit.Diagnostics;
+using Microsoft.Toolkit.Extensions;
 using Microsoft.Toolkit.Uwp.Helpers;
 using Microsoft.Toolkit.Uwp.UI.Controls.ColorPickerConverters;
 using Windows.Foundation;
@@ -228,7 +229,11 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
         /// <param name="isRequired">Whether the element is required and will throw an exception if missing.</param>
         /// <returns>The template child matching the given name and type.</returns>
         private T GetTemplateChild<T>(string childName, bool isRequired = false)
+#if HAS_UNO
+            where T : class, DependencyObject
+#else
             where T : DependencyObject
+#endif
         {
             T child = this.GetTemplateChild(childName) as T;
             if ((child == null) && isRequired)
@@ -886,26 +891,26 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
                 {
                     case ColorChannel.Channel1:
                         {
-                            hue = Math.Clamp(double.IsNaN(newValue) ? 0 : newValue, 0, 360);
+                            hue = MathEx.Clamp(double.IsNaN(newValue) ? 0 : newValue, 0, 360);
                             break;
                         }
 
                     case ColorChannel.Channel2:
                         {
-                            saturation = Math.Clamp((double.IsNaN(newValue) ? 0 : newValue) / 100, 0, 1);
+                            saturation = MathEx.Clamp((double.IsNaN(newValue) ? 0 : newValue) / 100, 0, 1);
                             break;
                         }
 
                     case ColorChannel.Channel3:
                         {
-                            value = Math.Clamp((double.IsNaN(newValue) ? 0 : newValue) / 100, 0, 1);
+                            value = MathEx.Clamp((double.IsNaN(newValue) ? 0 : newValue) / 100, 0, 1);
                             break;
                         }
 
                     case ColorChannel.Alpha:
                         {
                             // Unlike color channels, default to no transparency
-                            alpha = Math.Clamp((double.IsNaN(newValue) ? 100 : newValue) / 100, 0, 1);
+                            alpha = MathEx.Clamp((double.IsNaN(newValue) ? 100 : newValue) / 100, 0, 1);
                             break;
                         }
                 }
@@ -937,26 +942,26 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
                 {
                     case ColorChannel.Channel1:
                         {
-                            red = Convert.ToByte(Math.Clamp(double.IsNaN(newValue) ? 0 : newValue, 0, 255));
+                            red = Convert.ToByte(MathEx.Clamp(double.IsNaN(newValue) ? 0 : newValue, 0, 255));
                             break;
                         }
 
                     case ColorChannel.Channel2:
                         {
-                            green = Convert.ToByte(Math.Clamp(double.IsNaN(newValue) ? 0 : newValue, 0, 255));
+                            green = Convert.ToByte(MathEx.Clamp(double.IsNaN(newValue) ? 0 : newValue, 0, 255));
                             break;
                         }
 
                     case ColorChannel.Channel3:
                         {
-                            blue = Convert.ToByte(Math.Clamp(double.IsNaN(newValue) ? 0 : newValue, 0, 255));
+                            blue = Convert.ToByte(MathEx.Clamp(double.IsNaN(newValue) ? 0 : newValue, 0, 255));
                             break;
                         }
 
                     case ColorChannel.Alpha:
                         {
                             // Unlike color channels, default to no transparency
-                            alpha = Convert.ToByte(Math.Clamp(double.IsNaN(newValue) ? 255 : newValue, 0, 255));
+                            alpha = Convert.ToByte(MathEx.Clamp(double.IsNaN(newValue) ? 255 : newValue, 0, 255));
                             break;
                         }
                 }

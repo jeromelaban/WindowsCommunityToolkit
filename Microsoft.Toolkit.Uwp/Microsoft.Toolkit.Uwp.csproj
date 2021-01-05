@@ -1,11 +1,12 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
-    <TargetFramework>uap10.0.17763</TargetFramework>
-    <Title>Windows Community Toolkit</Title>
+		<TargetFrameworks>uap10.0.17763</TargetFrameworks>
+		<Title>Windows Community Toolkit</Title>
     <Description>This package includes code only helpers such as Colors conversion tool, Storage file handling, a Stream helper class, etc.</Description>
     <PackageTags>UWP Toolkit Windows</PackageTags>
     <LangVersion>8.0</LangVersion>
+		<UseUnoPlatform>true</UseUnoPlatform>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,5 +16,7 @@
     <ProjectReference Include="..\Microsoft.Toolkit\Microsoft.Toolkit.csproj" />
 
   </ItemGroup>
+
+	<Import Project="..\UnoPlatform.targets"/>
 
 </Project>
