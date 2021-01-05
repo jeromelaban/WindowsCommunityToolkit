@@ -1,7 +1,6 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
-
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -13,7 +12,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
     /// <summary>
     /// Represents the container for an item in a Carousel control.
     /// </summary>
-    public class CarouselItem : SelectorItem
+    public partial class CarouselItem : SelectorItem
     {
         private const string PointerOverState = "PointerOver";
         private const string PointerOverSelectedState = "PointerOverSelected";
